@@ -1,0 +1,107 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>成功率总览</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <style>
+    body { font-family: Arial; margin:20px; }
+    #scatter-chart { width:100%; height:500px; }
+    .bar-container { display: flex; justify-content: space-between; margin-top:40px; }
+    .bar-chart { width:48%; height:400px; }
+  </style>
+</head>
+<body>
+  <h2>成功率总览</h2>
+
+  <!-- 散点图 -->
+  <div id="scatter-chart"></div>
+
+  <!-- 并排柱状图 -->
+  <div class="bar-container">
+    <div id="bar-map" class="bar-chart"></div>
+    <div id="bar-sot" class="bar-chart"></div>
+  </div>
+
+  <script>
+    // 数据
+    var scatterData = [{"file_name": "2025-07-01-08-11-22_10130.csv", "url": "plots/2025-07-01-08-11-22_10130.html", "map_success_rate": 98.05998717909694, "sot_success_rate": 100.0, "lane_success_rate": 61.70770921271706, "barrier_success_rate": 93.16344887733243, "max_precip_mm": 0.0}, {"file_name": "2025-07-01-10-33-10_10128.csv", "url": "plots/2025-07-01-10-33-10_10128.html", "map_success_rate": 93.42904047840244, "sot_success_rate": 100.0, "lane_success_rate": 73.3893572739942, "barrier_success_rate": 84.90631611001103, "max_precip_mm": 0.0}, {"file_name": "2025-07-01-14-22-19_10130.csv", "url": "plots/2025-07-01-14-22-19_10130.html", "map_success_rate": 98.4086167732557, "sot_success_rate": 100.0, "lane_success_rate": 76.4570428291201, "barrier_success_rate": 89.23068076124049, "max_precip_mm": 0.0}, {"file_name": "2025-07-02-08-16-09_10128.csv", "url": "plots/2025-07-02-08-16-09_10128.html", "map_success_rate": 84.07262235522738, "sot_success_rate": 99.58254187999765, "lane_success_rate": 64.21789165034197, "barrier_success_rate": 71.0618245102074, "max_precip_mm": 5.0}, {"file_name": "2025-07-02-14-30-47_10128.csv", "url": "plots/2025-07-02-14-30-47_10128.html", "map_success_rate": 98.18490764761808, "sot_success_rate": 100.0, "lane_success_rate": 86.57113632314297, "barrier_success_rate": 87.03064557322739, "max_precip_mm": 1.2}, {"file_name": "2025-07-02-14-55-59_10130.csv", "url": "plots/2025-07-02-14-55-59_10130.html", "map_success_rate": 98.15632095360124, "sot_success_rate": 100.0, "lane_success_rate": 80.31707461546287, "barrier_success_rate": 88.47710453033478, "max_precip_mm": 3.1}, {"file_name": "2025-07-03-08-17-53_10130.csv", "url": "plots/2025-07-03-08-17-53_10130.html", "map_success_rate": 98.8201522456819, "sot_success_rate": 99.99584881463235, "lane_success_rate": 71.85166977001877, "barrier_success_rate": 92.62984424839227, "max_precip_mm": 0.0}, {"file_name": "2025-07-03-14-37-01_10130.csv", "url": "plots/2025-07-03-14-37-01_10130.html", "map_success_rate": 98.4280156622514, "sot_success_rate": 99.99978038518267, "lane_success_rate": 87.90819375251908, "barrier_success_rate": 88.07162301935661, "max_precip_mm": 0.0}, {"file_name": "2025-07-04-10-24-39_10128.csv", "url": "plots/2025-07-04-10-24-39_10128.html", "map_success_rate": 96.29541815069226, "sot_success_rate": 100.0, "lane_success_rate": 74.42855615860027, "barrier_success_rate": 82.6476212307793, "max_precip_mm": 1.3}, {"file_name": "2025-07-04-14-45-43_10128.csv", "url": "plots/2025-07-04-14-45-43_10128.html", "map_success_rate": 94.60383428212538, "sot_success_rate": 99.98886656524849, "lane_success_rate": 81.10847197258059, "barrier_success_rate": 65.5596241161151, "max_precip_mm": 6.4}, {"file_name": "2025-07-05-07-50-45_10128.csv", "url": "plots/2025-07-05-07-50-45_10128.html", "map_success_rate": 84.3995541543261, "sot_success_rate": 100.0, "lane_success_rate": 37.780924324898464, "barrier_success_rate": 80.5202345786223, "max_precip_mm": 0.0}, {"file_name": "2025-07-05-14-10-13_10128.csv", "url": "plots/2025-07-05-14-10-13_10128.html", "map_success_rate": 99.24912734853064, "sot_success_rate": 100.0, "lane_success_rate": 90.17114032252651, "barrier_success_rate": 86.4697195556239, "max_precip_mm": 0.0}, {"file_name": "2025-07-06-08-01-19_10128.csv", "url": "plots/2025-07-06-08-01-19_10128.html", "map_success_rate": 89.60393966326663, "sot_success_rate": 99.9779580947275, "lane_success_rate": 66.86524509714634, "barrier_success_rate": 83.16613343036666, "max_precip_mm": 0.0}, {"file_name": "2025-07-06-08-31-27_10130.csv", "url": "plots/2025-07-06-08-31-27_10130.html", "map_success_rate": 88.64060186635068, "sot_success_rate": 100.0, "lane_success_rate": 76.27285618791899, "barrier_success_rate": 82.70474662116912, "max_precip_mm": 0.0}, {"file_name": "2025-07-06-13-47-32_10128.csv", "url": "plots/2025-07-06-13-47-32_10128.html", "map_success_rate": 98.58371169523717, "sot_success_rate": 99.9996117872548, "lane_success_rate": 85.23871027739996, "barrier_success_rate": 89.46912753479447, "max_precip_mm": 0.0}, {"file_name": "2025-07-07-08-27-55_10130.csv", "url": "plots/2025-07-07-08-27-55_10130.html", "map_success_rate": 98.47856617773863, "sot_success_rate": 99.9989594588671, "lane_success_rate": 67.88686681615704, "barrier_success_rate": 92.5795638969791, "max_precip_mm": 0.1}, {"file_name": "2025-07-07-08-52-44_10128.csv", "url": "plots/2025-07-07-08-52-44_10128.html", "map_success_rate": 98.49740654344723, "sot_success_rate": 100.0, "lane_success_rate": 78.44425509122753, "barrier_success_rate": 90.18202880759577, "max_precip_mm": 0.1}, {"file_name": "2025-07-07-10-40-15_10152.csv", "url": "plots/2025-07-07-10-40-15_10152.html", "map_success_rate": 96.1832261744778, "sot_success_rate": 99.99375926025377, "lane_success_rate": 64.6032318985617, "barrier_success_rate": 88.63142080238504, "max_precip_mm": 0.0}, {"file_name": "2025-07-07-14-30-16_10128.csv", "url": "plots/2025-07-07-14-30-16_10128.html", "map_success_rate": 98.43292519523467, "sot_success_rate": 100.0, "lane_success_rate": 82.52734713429017, "barrier_success_rate": 88.25628358509412, "max_precip_mm": 0.0}, {"file_name": "2025-07-08-08-42-08_10128.csv", "url": "plots/2025-07-08-08-42-08_10128.html", "map_success_rate": 87.81438978752449, "sot_success_rate": 100.0, "lane_success_rate": 61.869681551826886, "barrier_success_rate": 82.22570802480467, "max_precip_mm": 0.1}, {"file_name": "2025-07-08-14-23-25_10130.csv", "url": "plots/2025-07-08-14-23-25_10130.html", "map_success_rate": 97.14966016776722, "sot_success_rate": 99.99958426447331, "lane_success_rate": 51.650168183469646, "barrier_success_rate": 90.59266984952198, "max_precip_mm": 8.9}, {"file_name": "2025-07-09-09-03-03_10128.csv", "url": "plots/2025-07-09-09-03-03_10128.html", "map_success_rate": 92.17143121203175, "sot_success_rate": 100.0, "lane_success_rate": 54.273777500659584, "barrier_success_rate": 84.56457911053567, "max_precip_mm": 0.1}, {"file_name": "2025-07-09-14-53-45_10128.csv", "url": "plots/2025-07-09-14-53-45_10128.html", "map_success_rate": 97.8356430951949, "sot_success_rate": 100.0, "lane_success_rate": 75.22792787036462, "barrier_success_rate": 89.87551517953554, "max_precip_mm": 0.2}, {"file_name": "2025-07-10-14-07-48_10130.csv", "url": "plots/2025-07-10-14-07-48_10130.html", "map_success_rate": 99.43469803652174, "sot_success_rate": 100.0, "lane_success_rate": 89.40696660284627, "barrier_success_rate": 91.04286529015259, "max_precip_mm": 0.0}, {"file_name": "2025-07-12-10-04-06_10130.csv", "url": "plots/2025-07-12-10-04-06_10130.html", "map_success_rate": 96.46121963145482, "sot_success_rate": 99.88509272475976, "lane_success_rate": 79.39299467878627, "barrier_success_rate": 87.85746677234393, "max_precip_mm": 0.1}, {"file_name": "2025-07-12-16-05-33_10130.csv", "url": "plots/2025-07-12-16-05-33_10130.html", "map_success_rate": 98.0154623778665, "sot_success_rate": 100.0, "lane_success_rate": 70.53366169306435, "barrier_success_rate": 91.0497879772695, "max_precip_mm": 0.0}, {"file_name": "2025-07-13-08-36-27_10130.csv", "url": "plots/2025-07-13-08-36-27_10130.html", "map_success_rate": 88.66553938393241, "sot_success_rate": 100.0, "lane_success_rate": 75.72975910344906, "barrier_success_rate": 80.44085102115419, "max_precip_mm": 0.0}, {"file_name": "2025-07-13-14-20-12_10130.csv", "url": "plots/2025-07-13-14-20-12_10130.html", "map_success_rate": 98.42040613294432, "sot_success_rate": 100.0, "lane_success_rate": 84.68901451306141, "barrier_success_rate": 86.91028855731594, "max_precip_mm": 0.0}];
+    var dates       = ["2025-07-01", "2025-07-02", "2025-07-03", "2025-07-04", "2025-07-05", "2025-07-06", "2025-07-07", "2025-07-08", "2025-07-09", "2025-07-10", "2025-07-12", "2025-07-13"];
+    var mapAvgs     = [96.63254814358503, 93.4712836521489, 98.62408395396665, 95.44962621640882, 91.82434075142837, 92.27608440828483, 97.89803102272458, 92.48202497764586, 95.00353715361332, 99.43469803652174, 97.23834100466067, 93.54297275843837];
+    var sotAvgs     = [100.0, 99.86084729333254, 99.99781459990751, 99.99443328262424, 100.0, 99.99252329399411, 99.99817967978021, 99.99979213223665, 100.0, 100.0, 99.94254636237989, 100.0];
+
+    // 1. Scatter: 地图 vs SOT 成功率，颜色表示最大降雨量
+    var maxPrecipList = scatterData.map(d => d.max_precip_mm);
+    var traceScatter = {
+      x: scatterData.map(d => d.map_success_rate),
+      y: scatterData.map(d => d.sot_success_rate),
+      mode: 'markers',
+      type: 'scatter',
+      text: scatterData.map(d =>
+        '文件: ' + d.file_name +
+        '<br>地图定位: ' + d.map_success_rate.toFixed(2) + '%' +
+        '<br>SOT追踪: ' + d.sot_success_rate.toFixed(2) + '%' +
+        '<br>车道线: ' + d.lane_success_rate.toFixed(2) + '%' +
+        '<br>护栏: ' + d.barrier_success_rate.toFixed(2) + '%' +
+        '<br>最大降雨: ' + d.max_precip_mm.toFixed(2) + ' mm'
+      ),
+      marker: {
+        size: 12,
+        color: maxPrecipList,
+        colorscale: 'Reds',
+        cmin: 0,
+        cmax: Math.max(...maxPrecipList),
+        colorbar: {
+          title: '最大降雨量 (mm)',
+          thickness: 15
+        },
+        opacity: 0.9
+      }
+    };
+    var layoutScatter = {
+      title: '地图定位成功率 vs SOT追踪成功率（颜色表示最大降雨）',
+      xaxis: { title: '地图定位成功率 (%)' },
+      yaxis: { title: 'SOT追踪成功率 (%)' },
+      hovermode: 'closest'
+    };
+    Plotly.newPlot('scatter-chart', [traceScatter], layoutScatter);
+
+    // 点击点打开详情页面
+    document.getElementById('scatter-chart')
+      .on('plotly_click', evt => {
+        var pt = evt.points[0].pointIndex;
+        window.open(scatterData[pt].url, '_blank');
+      });
+
+    // 2. Bar1: 地图成功率（日）
+    var traceBarMap = {
+      x: dates,
+      y: mapAvgs,
+      type: 'bar',
+      name: '地图定位成功率',
+      marker: { color: 'green' }
+    };
+    var layoutBarMap = {
+      title: '地图定位成功率（按天）',
+      xaxis: { title: '日期' },
+      yaxis: { title: '成功率 (%)' }
+    };
+    Plotly.newPlot('bar-map', [traceBarMap], layoutBarMap);
+
+    // 3. Bar2: SOT成功率（日）
+    var traceBarSot = {
+      x: dates,
+      y: sotAvgs,
+      type: 'bar',
+      name: 'SOT追踪成功率',
+      marker: { color: 'steelblue' }
+    };
+    var layoutBarSot = {
+      title: 'SOT追踪成功率（按天）',
+      xaxis: { title: '日期' },
+      yaxis: { title: '成功率 (%)' }
+    };
+    Plotly.newPlot('bar-sot', [traceBarSot], layoutBarSot);
+
+  </script>
+</body>
+</html>
